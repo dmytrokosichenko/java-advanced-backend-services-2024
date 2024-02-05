@@ -1,5 +1,6 @@
 package com.epam.bs.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import javax.sql.DataSource;
 public class DataSourceConfig  {
 
     @Bean
+    @ConditionalOnProperty(name = "custom.datasource.enabled", havingValue = "true", matchIfMissing = true)
     public DataSource dataSource(DataSourceProperties properties) {
         return DataSourceBuilder.create()
                 .driverClassName(properties.getDriverClassName())
